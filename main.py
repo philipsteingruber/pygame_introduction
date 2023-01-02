@@ -42,6 +42,10 @@ class Player(pygame.sprite.Sprite):
                 self.player_index = 0
             self.image = self.player_walk[int(self.player_index)]
 
+    def reset(self):
+        self.rect.bottom = FLOOR_HEIGHT
+        self.gravity = 0
+
     def update(self) -> None:
         self.player_input()
         self.apply_gravity()
@@ -176,6 +180,8 @@ while True:
         obstacle_group.update()
 
         # Check for collisions
+        if collisions():
+            player.reset()
         game_active = not collisions()
     else:
         # Display Game Over screen
